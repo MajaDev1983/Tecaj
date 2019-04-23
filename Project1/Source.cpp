@@ -3,7 +3,6 @@
 
 class Player
 {
-
 public:
 	Player(int positionX, int positionY, int currentVelocity, int currentHp)
 	{
@@ -30,33 +29,53 @@ public:
 
 
 
-void move(int& x, int& y, int& velocity)
-{
-	x += velocity;
-	y += velocity;
-}
+//void move(int& x, int& y, int& velocity)
+//{
+//	x += velocity;
+//	y += velocity;
+//}
 
 int main()
 {
+	int counter = 1;
+	std::string nameOne, nameTwo, nameThree;
+	std::cout << "This is a simple game involving 3 players." << std::endl;
+	
+	std::cout << "Player number one what is your name?" << std::endl;
+	std::cin >> nameOne;
 	Player playerOne = Player(0, 0, 10, 30);
-	playerOne.userName = "Chaos";
+	playerOne.userName = nameOne;
 	
 	//move(playerOneX, playerOneY, velocity); // pass by value, ali se stavi gore u funkciju & i to je by reference
 
+	std::cout << "Player number two what is your name?" << std::endl;
+	std::cin >> nameTwo;
 	Player playerTwo = Player(10, 15, 10, 30);
-	playerTwo.userName = "robi";
+	playerTwo.userName = nameTwo;
 
+	std::cout << "Player number three what is your name?" << std::endl;
+	std::cin >> nameThree;
+	Player playerThree = Player(15, 20, 10, 30);
+	playerThree.userName = nameThree;
 
 	playerOne.move();
 	playerTwo.move();
 
-	std::string losingPlayer;
-	std::string winnigPlayer;
+	//std::string losingPlayerFirst;
+	//std::string losingPlayerSecond;
+	//std::string winningPlayerFirst;
+	//std::string winningPlayerSecond;
 
-	while (playerOne.hp > 0 && playerTwo.hp > 0)
+	while (playerOne.hp > 0 && playerTwo.hp > 0 && playerThree.hp > 0)
 	{
+		std::cout << "================================================" << std::endl;
+		std::cout << "Round number " << counter << " begins!" << std::endl;
+		std::string hitter;
+		std::cout << "Who is doing the hitting?" << std::endl;
+		std::cin >> hitter;
+
 		int check;
-		std::cout << "Choose whitch player you want to hit: ";
+		std::cout << "Choose which player you want to hit: ";
 		std::cin >> check;
 		std::cout << std::endl;
 
@@ -66,31 +85,80 @@ int main()
 		{
 		case 1:
 			playerOne.damage(5);
-			std::cout << "Player one lost 5 hitpoints" << std::endl;
+			std::cout << "Player " << playerOne.userName << " lost 5 hitpoints by " << hitter <<  std::endl;
 			break;
 		case 2:
 			playerTwo.damage(5);
-			std::cout << "Player two lost 5 hitpoints" << std::endl;
+			std::cout << "Player " << playerTwo.userName << " lost 5 hitpoints by " << hitter << std::endl;
+			break;
+		case 3:
+			playerThree.damage(5);
+			std::cout << "Player " << playerThree.userName << " lost 5 hitpoints by " << hitter << std::endl;
 			break;
 		default:
 			break;
 		}
 
-		std::cout << "Player one hitpoints: " << playerOne.hp << std::endl;
-		std::cout << "Player two hitpoints: " << playerTwo.hp << std::endl;
+		std::cout << "\nPlayer " << playerOne.userName << " hitpoints: " << playerOne.hp << std::endl;
+		std::cout << "Player " << playerTwo.userName << " hitpoints: " << playerTwo.hp << std::endl; 
+		std::cout << "Player " << playerThree.userName << " hitpoints: " << playerThree.hp << std::endl;
+
+		++counter;
 	}
 
-	if(playerOne.hp <= 0)
+	std::cout << "\n";
+	if(playerTwo.hp > playerOne.hp && playerThree.hp > playerOne.hp)
 	{
-		losingPlayer = playerOne.userName;
+		std::cout << playerOne.userName << " lost! Better luck next time!" << std::endl;
+		if (playerTwo.hp > playerThree.hp)
+		{
+			std::cout << playerTwo.userName << " wins! Congartulations!";
+		}
+		else if (playerTwo.hp < playerThree.hp)
+		{
+			std::cout << playerThree.userName << " wins! Congartulations!";
+		}
+		else if (playerTwo.hp == playerThree.hp)
+		{
+			std::cout << playerThree.userName << " & " << playerTwo.userName << " win! Congartulations!";
+		}
 	}
-	else if(playerTwo.hp <= 0)
+	if(playerOne.hp > playerTwo.hp && playerThree.hp > playerTwo.hp)
 	{
-		losingPlayer = playerTwo.userName;
+		std::cout << playerTwo.userName << " lost! Better luck next time!" << std::endl;
+		if (playerOne.hp > playerThree.hp)
+		{
+			std::cout << playerOne.userName << " wins! Congartulations!";
+		}
+		else if (playerOne.hp < playerThree.hp)
+		{
+			std::cout << playerThree.userName << " wins! Congartulations!";
+		}
+		else if (playerOne.hp == playerThree.hp)
+		{
+			std::cout << playerOne.userName << " & " << playerThree.userName << " win! Congartulations!";
+		}
+	}
+	if (playerOne.hp > playerThree.hp && playerTwo.hp > playerThree.hp)
+	{
+		std::cout << playerThree.userName << " lost! Better luck next time!" << std::endl;
+		if (playerOne.hp > playerTwo.hp)
+		{
+			std::cout << playerOne.userName << " wins! Congartulations!";
+		}
+		else if (playerOne.hp < playerTwo.hp)
+		{
+			std::cout << playerTwo.userName << " wins! Congartulations!";
+		}
+		else if (playerOne.hp == playerTwo.hp)
+		{
+			std::cout << playerOne.userName << " & " << playerTwo.userName << " win! Congartulations!";
+		}
 	}
 
-	std::cout << winningPlayer << "wins! Congratulations!" << std::endl;
-	std::cout << losingPlayer << " lost! Better luck next time!";
+
+	//std::cout << winningPlayer << " wins! Congratulations!" << std::endl;
+	//std::cout << losingPlayerFirst << " & " << losingPlayerSecond << " lost! Better luck next time!";
 
 	std::cin.get();
 
