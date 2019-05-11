@@ -11,6 +11,7 @@ public:
 		_name = givenName;
 		_lastName = givenLastName;
 		_address = givenAddress;
+
 	}
 
 	~Person();
