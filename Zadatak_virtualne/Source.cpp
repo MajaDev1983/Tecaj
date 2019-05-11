@@ -121,7 +121,8 @@ int main()
 	}
 
 	//dodaj apstrakciju za printanje funkcije pogledaj na githubu...
-	//zadatak za doma...sve da može korisnik unjeti
+
+	//zadatak za doma...sve da može korisnik sam unjeti
 
 	std::cin.get();
 }
