@@ -11,14 +11,9 @@
 class Shape
 {
 public:
-
-	double a, b, c, r;
-
 	virtual std::string ime() = 0;
 	virtual double area() = 0;
 	virtual double perimeter() = 0;
-
-private:
 
 };
 
@@ -26,6 +21,8 @@ class Triangle : public Shape
 {
 public:
 	
+	float a, b, c;
+
 	std::string ime()
 	{
 		return "Trokut";
@@ -50,6 +47,8 @@ class Circle : public Shape
 {
 public:
 
+	float r;
+
 	std::string ime()
 	{
 		return "Krug";
@@ -69,58 +68,90 @@ private:
 
 };
 
-class Square : public Shape
+class Rectangle : public Shape
 {
 public:
 
+	float a, b;
+	
 	std::string ime()
 	{
-		return "Kvadrat";
+		return "Pravokutnik";
 	}
 
 	double area()
 	{
-		return  (a * a);
+		return  (a * b);
 	}
 
 	double perimeter()
 	{
-		return (4 * a);
+		return (2 * a + 2 * b);
 	}
 
 private:
 
 };
 
+void printShapeInfo(Shape* shape)
+{
+	std::cout << "Ime oblika: " << shape->ime() << std::endl;
+	std::cout << "Povrsina je: " << shape->area() << std::endl;
+	std::cout << "Opseg je: " << shape->perimeter() << std::endl;
+	std::cout << "==========================================" << std::endl;
+}
 
 
 int main()
 {
-	Triangle* trokut = new Triangle();
-	trokut->a = 3.8;
-	trokut->b = 4.2;
-	trokut->c = 2.2;
+	std::cout << "This program calulates perimeter and area of different shapes!" << std::endl;
+	std::cout << "Which shape do you want to choose?" << std::endl;
+	std::cout << "Press 1 for triangle" << std::endl;
+	std::cout << "Press 2 for circle" << std::endl;
+	std::cout << "Press 3 for rectangle" << std::endl;
+	int ordinalNumber;
+	std::cin >> ordinalNumber;
 	
-	Circle* krug = new Circle();
-	krug->r = 2.6;
+	switch (ordinalNumber)
+	{
+	case 1: 
+		Triangle* trokut = new Triangle();
+		std::cout << "Enter the sides of a triangle: " << std::endl;
+		std::cin >> trokut->a;
+		std::cin >> trokut->b;
+		std::cin >> trokut->c;
 
-	Square* kvadrat = new Square();
-	kvadrat->a = 5.0;
+	case 2:
+		Circle* krug = new Circle();
+		std::cout << "Enter the radius of a circle: " << std::endl;
+		std::cin >> krug->r;
+
+	case 3:
+		Rectangle* pravokutnik = new Rectangle();
+		std::cout << "Enter the sides of a rectangle: " << std::endl;
+		std::cin >> pravokutnik->a;
+		std::cin >> pravokutnik->b;
+	
+	default:
+		break;
+	}
+
+	
+
+
+
 
 	std::vector<Shape*> oblici;
 	oblici.push_back(trokut);
 	oblici.push_back(krug);
-	oblici.push_back(kvadrat);
+	oblici.push_back(pravokutnik);
 
 	for (Shape* it : oblici)
 	{
-		std::cout << "Ime oblika: " << it->ime() << std::endl;
-		std::cout << "Povrsina je: " << it->area() << std::endl;
-		std::cout << "Opseg je: " << it->perimeter() << std::endl;
-		std::cout << "==========================================" << std::endl;
+		printShapeInfo(it);
 	}
 
-	//dodaj apstrakciju za printanje funkcije pogledaj na githubu...
+	//dodaj apstrakciju za printanje funkcije pogledaj na githubu... DONE!
 
 	//zadatak za doma...sve da može korisnik sam unjeti
 
